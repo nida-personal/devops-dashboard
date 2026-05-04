@@ -15,9 +15,9 @@ function PipelineCard({ pipeline }) {
         </span>
       </div>
       <div className="card-meta">
-        <span>í¼¿ {pipeline.branch}</span>
+        <span>ï¿½ï¿½ï¿½ {pipeline.branch}</span>
         <span>â± {pipeline.duration}</span>
-        <span>íµ {pipeline.triggered}</span>
+        <span>ï¿½ï¿½ï¿½ {pipeline.triggered}</span>
       </div>
       <div className="steps">
         {pipeline.steps.map((step, i) => (
@@ -35,10 +35,28 @@ export default function App() {
   const [loading, setLoading]     = useState(true);
   const [filter, setFilter]       = useState('all');
 
+  // useEffect(() => {
+  //   axios.get('http://localhost:5000/api/pipelines')
+  //     .then(r => { setPipelines(r.data); setLoading(false); });
+  // }, []);
+
   useEffect(() => {
+  const fetchData = () => {
     axios.get('http://localhost:5000/api/pipelines')
-      .then(r => { setPipelines(r.data); setLoading(false); });
-  }, []);
+      .then(r => {
+        setPipelines(r.data);
+        setLoading(false);
+      });
+  };
+
+  fetchData(); // initial load
+
+  const interval = setInterval(() => {
+    fetchData();
+  }, 5000); // auto refresh every 5 sec
+
+  return () => clearInterval(interval);
+}, []);
 
   const filtered = filter === 'all' ? pipelines : pipelines.filter(p => p.status === filter);
 
