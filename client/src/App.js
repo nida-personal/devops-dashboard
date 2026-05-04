@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import './App.css';
+// # Added for interactive #
+const [filter, setFilter] = useState('all');
+const [selectedPipeline, setSelectedPipeline] = useState(null);
 
 const statusColor = { success: '#22c55e', running: '#3b82f6', failed: '#ef4444', pending: '#f59e0b' };
 const statusIcon  = { success: '✓', running: '⟳', failed: '✗', pending: '◷' };
 
-function PipelineCard({ pipeline }) {
+function PipelineCard({ pipeline, onSelect }) {
   return (
-    <div className="card">
+    <div className="card" onClick={() => onSelect(pipeline)} style={{ cursor: 'pointer' }}>>
       <div className="card-header">
         <span className="pipeline-name">{pipeline.name}</span>
         <span className="status-badge" style={{ background: statusColor[pipeline.status] }}>
@@ -91,8 +94,30 @@ export default function App() {
 
       <main>
         {loading ? <p className="loading">Fetching pipelines...</p>
-          : filtered.map(p => <PipelineCard key={p.id} pipeline={p} />)}
+          : filtered.map(p => <PipelineCard key={p.id} pipeline={p} onSelect={setSelectedPipeline} />)}
       </main>
+      {selectedPipeline && (
+        <div className="detail-panel">
+          <h2>{selectedPipeline.name} Details</h2>
+      
+          <p><b>Branch:</b> {selectedPipeline.branch}</p>
+          <p><b>Status:</b> {selectedPipeline.status}</p>
+          <p><b>Duration:</b> {selectedPipeline.duration}</p>
+      
+          <h3>Steps</h3>
+          <ul>
+            {selectedPipeline.steps.map((step, i) => (
+              <li key={i}>
+                {step} {selectedPipeline.status === 'failed' && i === selectedPipeline.steps.length - 1 ? '❌' : '✔'}
+              </li>
+            ))}
+          </ul>
+      
+          <button onClick={() => setSelectedPipeline(null)}>
+            Close
+          </button>
+  </div>
+)}
     </div>
   );
 }
