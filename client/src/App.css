@@ -1,0 +1,97 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #0d1117;
+  color: #e6edf3;
+  font-family: 'Courier New', monospace;
+  min-height: 100vh;
+}
+
+.app { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #21262d;
+}
+
+h1 { font-size: 1.6rem; color: #58a6ff; letter-spacing: -0.5px; }
+header p { color: #8b949e; font-size: 0.8rem; margin-top: 4px; }
+
+.stats { display: flex; gap: 1rem; }
+.stat {
+  text-align: center;
+  border: 1px solid;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+}
+.stat-num { display: block; font-size: 1.4rem; font-weight: bold; }
+.stat-label { font-size: 0.65rem; text-transform: uppercase; color: #8b949e; }
+
+.filters { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.filters button {
+  background: transparent;
+  border: 1px solid #21262d;
+  color: #8b949e;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: inherit;
+  text-transform: capitalize;
+  transition: all 0.2s;
+}
+.filters button:hover, .filters button.active {
+  border-color: #58a6ff;
+  color: #58a6ff;
+}
+
+.card {
+  background: #161b22;
+  border: 1px solid #21262d;
+  border-radius: 8px;
+  padding: 1.2rem;
+  margin-bottom: 1rem;
+  transition: border-color 0.2s;
+}
+.card:hover { border-color: #388bfd; }
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.pipeline-name { font-size: 1rem; font-weight: bold; color: #e6edf3; }
+
+.status-badge {
+  padding: 0.2rem 0.7rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.card-meta {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.78rem;
+  color: #8b949e;
+  margin-bottom: 1rem;
+}
+
+.steps { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.step {
+  background: #21262d;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  color: #8b949e;
+}
+.step.active { background: #1f3a5f; color: #58a6ff; }
+
+.loading { color: #8b949e; text-align: center; padding: 3rem; }
